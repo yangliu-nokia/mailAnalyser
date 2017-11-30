@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import Postal
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var tryMeButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +24,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    func connect() {
+        let postal = Postal(configuration: .icloud(login: "myemail@icloud.com", password: "mypassword"))
+        postal.connect { result in
+            switch result {
+            case .success:
+                print("success")
+            case .failure(let error):
+                print("error: \(error)")
+            }
+        }
+    }
 }
 
